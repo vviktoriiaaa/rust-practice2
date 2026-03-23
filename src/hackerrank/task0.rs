@@ -1,16 +1,24 @@
-// https://www.hackerrank.com/challenges/simple-array-sum/problem
-fn simple_array_sum(aa: &[i32]) -> i32 {
-    let mut x: i32 = 0;
-    for a in aa {
-        x += a
-    }
-    x
+/// ПРАКТИЧНА 4: Grading Students
+/// https://www.hackerrank.com/challenges/grading
+
+pub fn grading_students(grades: &[i32]) -> Vec<i32> {
+    grades.iter().map(|&grade| {
+        if grade >= 38 {
+            let rem = grade % 5;
+            if rem >= 3 {
+                return grade + (5 - rem);
+            }
+        }
+        grade
+    }).collect()
 }
 
-#[test]
-fn test0() {
-    let aa = vec![10, 11, 12];
-    let real = simple_array_sum(&aa);
-    let expected = 10 + 11 + 12;
-    assert_eq!(real, expected);
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_grading() {
+        assert_eq!(grading_students(&[73, 67, 38, 33]), vec![75, 67, 40, 33]);
+    }
 }
